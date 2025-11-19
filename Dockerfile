@@ -1,8 +1,10 @@
-# Use official Nginx image
-FROM nginx:alpine
+FROM ubuntu:18.04
 
-# Copy your HTML file into Nginx's default public directory
-COPY index.html /usr/share/nginx/html/
+RUN apt-get update && \
+    apt-get install -y apache2
 
-# Expose port 80
+COPY index.html /var/www/html/index.html
+
 EXPOSE 80
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
